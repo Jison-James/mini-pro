@@ -31,9 +31,19 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Serve static frontend files (Production)
+const clientDistPath = join(__dirname, '../client/dist');
+app.use(express.static(clientDistPath));
+
 // Health check
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// All other routes should serve the index.html (SPA)
+app.get('*', (req, res) => {
+    if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API route not found' });
+    res.sendFile(join(clientDistPath, 'index.html'));
 });
 
 app.listen(PORT, () => {

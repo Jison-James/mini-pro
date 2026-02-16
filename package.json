@@ -1,0 +1,9 @@
+{
+    "name": "indoor-nav-root",
+    "private": true,
+    "scripts": {
+        "install-all": "npm install && cd client && npm install && cd ../server && npm install",
+        "build": "cd client && npm run build",
+        "start": "cd server && node server.js"
+    }
+}
