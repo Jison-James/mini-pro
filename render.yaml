@@ -1,13 +1,13 @@
-# Blueprint Version: 1.1 - Monolithic Setup
+# Blueprint Version: 1.3 - Node 20 & Explicit Build
 services:
   - type: web
     name: indoor-navigation-app
-    env: node
+    runtime: node
     plan: free
-    buildCommand: npm install && npm run build && cd server && npm install
-    startCommand: cd server && node server.js
+    buildCommand: npm run build
+    startCommand: npm start
     envVars:
       - key: JWT_SECRET
         generateValue: true
       - key: NODE_VERSION
-        value: 18.0.0
+        value: 20
